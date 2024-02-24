@@ -1,4 +1,4 @@
-import "./App.css";
+import "../src/App.css";
 
 function Home() {
   return (
@@ -29,4 +29,4 @@ function Home() {
   );
 }
 
-export default App;
+export default Home;
