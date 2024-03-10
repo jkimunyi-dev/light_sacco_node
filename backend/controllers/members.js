@@ -6,7 +6,7 @@ const membersRoute = express();
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "jimmie",
+  password: "jimmy254",
   database: "light_sacco",
 });
 
