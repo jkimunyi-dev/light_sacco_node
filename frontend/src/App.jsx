@@ -16,6 +16,8 @@ const App = () => {
         <Route path="/buyshares" element={<BuyShares />} />
         <Route path="/loan" element={<Loan />} />
         <Route path="/createsavingsaccount" element={<Loan />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
       </Routes>
     </>
   );
@@ -643,5 +645,74 @@ const Loan = () => {
     </div>
   );
 };
+
+const Dashboard = () => {
+  return (
+    <div className="flex h-screen">
+      {/* Sidebar */}
+      <div className="bg-gray-800 text-white w-1/5">
+        <div className="py-8 px-4">
+          <h2 className="text-lg font-semibold mb-4">Sidebar</h2>
+          <ul>
+          <ul>
+              <li className="mb-2 hover:cursor-pointer hover:text-gray-600">Item 1</li>
+              <li className="mb-2 hover:cursor-pointer hover:text-gray-600">Item 2</li>
+              <li className="mb-2 hover:cursor-pointer hover:text-gray-600">Item 3</li>
+</ul>
+
+          </ul>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 bg-gray-100 text-gray-800">
+        <div className="p-8">
+          <h1 className="text-2xl font-bold mb-4">Members Table</h1>
+          <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead className="bg-gray-200">
+              <tr>
+                <th className="px-4 py-2">Member ID</th>
+                <th className="px-4 py-2">First Name</th>
+                <th className="px-4 py-2">Last Name</th>
+                <th className="px-4 py-2">ID Number</th>
+                <th className="px-4 py-2">Date of Birth</th>
+                <th className="px-4 py-2">Contact Number</th>
+                <th className="px-4 py-2">Email</th>
+                <th className="px-4 py-2">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Example Data (Replace with dynamic data from your backend) */}
+              <tr>
+                <td className="px-4 py-2">1</td>
+                <td className="px-4 py-2">John</td>
+                <td className="px-4 py-2">Doe</td>
+                <td className="px-4 py-2">1234567890</td>
+                <td className="px-4 py-2">1990-01-01</td>
+                <td className="px-4 py-2">123-456-7890</td>
+                <td className="px-4 py-2">john@example.com</td>
+                <td className="px-4 py-2">123 Main St, City</td>
+              </tr>
+              <tr>
+                <td className="px-4 py-2">2</td>
+                <td className="px-4 py-2">Jane</td>
+                <td className="px-4 py-2">Smith</td>
+                <td className="px-4 py-2">0987654321</td>
+                <td className="px-4 py-2">1988-05-05</td>
+                <td className="px-4 py-2">987-654-3210</td>
+                <td className="px-4 py-2">jane@example.com</td>
+                <td className="px-4 py-2">456 Elm St, Town</td>
+              </tr>
+              {/* End of Example Data */}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+
 
 export default App;

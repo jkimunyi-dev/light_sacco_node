@@ -1,39 +1,65 @@
-const Dashboard = () => {
-    return (
-    <>
-        <div class="bg-gray-100 p-6">
-    <h1 class="text-2xl font-bold mb-4">Member Dashboard</h1>
+import { useState } from 'react';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 
-    <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-        <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Member ID</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">First Name</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID Number</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date of Birth</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact Number</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
-        </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-        <!-- Replace this dummy data with actual data fetched from backend -->
-        <tr>
-            <td class="px-6 py-4 whitespace-nowrap">1</td>
-            <td class="px-6 py-4 whitespace-nowrap">John</td>
-            <td class="px-6 py-4 whitespace-nowrap">Doe</td>
-            <td class="px-6 py-4 whitespace-nowrap">123456789</td>
-            <td class="px-6 py-4 whitespace-nowrap">1990-01-01</td>
-            <td class="px-6 py-4 whitespace-nowrap">123-456-7890</td>
-            <td class="px-6 py-4 whitespace-nowrap">john@example.com</td>
-            <td class="px-6 py-4 whitespace-nowrap">123 Main St, City, Country</td>
-        </tr>
-        <!-- End of dummy data -->
-        </tbody>
-    </table>
-    </div>
-    </>
-    );
-}
-export Dashboard;
+const Dashboard = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  return (
+    <Router>
+      <div className="flex h-screen">
+        {/* Sidebar */}
+        <div className={`bg-gray-800 text-white w-1/5 ${sidebarOpen ? 'block' : 'hidden'}`}>
+          <div className="py-8 px-4">
+            <h2 className="text-lg font-semibold mb-4">Sidebar</h2>
+            <ul>
+              <li className="mb-2">
+                <Link to="/item1" className="hover:cursor-pointer hover:text-gray-600" onClick={toggleSidebar}>
+                  Item 1
+                </Link>
+              </li>
+              <li className="mb-2">
+                <Link to="/item2" className="hover:cursor-pointer hover:text-gray-600" onClick={toggleSidebar}>
+                  Item 2
+                </Link>
+              </li>
+              <li className="mb-2">
+                <Link to="/item3" className="hover:cursor-pointer hover:text-gray-600" onClick={toggleSidebar}>
+                  Item 3
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1">
+          <Switch>
+            <Route path="/item1" component={Item1Component} />
+            <Route path="/item2" component={Item2Component} />
+            <Route path="/item3" component={Item3Component} />
+            <Route path="/" component={MembersTable} />
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  );
+};
+
+// Define your different components here
+const Item1Component = () => {
+  return <div>Item 1 Component</div>;
+};
+
+const Item2Component = () => {
+  return <div>Item 2 Component</div>;
+};
+
+const Item3Component = () => {
+  return <div>Item 3 Component</div>;
+};
+
+export default Dashboard;
