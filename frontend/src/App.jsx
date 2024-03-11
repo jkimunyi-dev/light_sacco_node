@@ -1,24 +1,38 @@
-import {  useState } from "react";
+import {  useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-
+import axios from "axios"
 
 import "./App.css";
 
 const App = () => {
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/");
+        setData(response.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/applyloan" element={<ApplyLoan />} />
-        <Route path="/loanrepayment" element={<LoanRepayment />} />
-        <Route path="/buyshares" element={<BuyShares />} />
-        <Route path="/loan" element={<Loan />} />
-        <Route path="/createsavingsaccount" element={<Loan />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+      <p>Data from API: {JSON.stringify(data)}</p>
 
-      </Routes>
+      
     </>
   );
 };
