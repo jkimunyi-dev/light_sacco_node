@@ -1,6 +1,5 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-
 
 import "./App.css";
 
@@ -17,7 +16,6 @@ const App = () => {
         <Route path="/loan" element={<Loan />} />
         <Route path="/createsavingsaccount" element={<Loan />} />
         <Route path="/dashboard" element={<Dashboard />} />
-
       </Routes>
     </>
   );
@@ -650,69 +648,749 @@ const Dashboard = () => {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="bg-gray-800 text-white w-1/5">
+      {/* <div className="bg-gray-800 text-white w-1/5">
         <div className="py-8 px-4">
           <h2 className="text-lg font-semibold mb-4">Sidebar</h2>
           <ul>
-          <ul>
-              <li className="mb-2 hover:cursor-pointer hover:text-gray-600">Item 1</li>
-              <li className="mb-2 hover:cursor-pointer hover:text-gray-600">Item 2</li>
-              <li className="mb-2 hover:cursor-pointer hover:text-gray-600">Item 3</li>
-</ul>
-
+            <ul>
+              <li className="mb-2 hover:cursor-pointer hover:text-gray-600">
+                Item 1
+              </li>
+              <li className="mb-2 hover:cursor-pointer hover:text-gray-600">
+                Item 2
+              </li>
+              <li className="mb-2 hover:cursor-pointer hover:text-gray-600">
+                Item 3
+              </li>
+            </ul>
           </ul>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="flex-1 bg-gray-100 text-gray-800">
-        <div className="p-8">
-          <h1 className="text-2xl font-bold mb-4">Members Table</h1>
-          <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
-            <thead className="bg-gray-200">
-              <tr>
-                <th className="px-4 py-2">Member ID</th>
-                <th className="px-4 py-2">First Name</th>
-                <th className="px-4 py-2">Last Name</th>
-                <th className="px-4 py-2">ID Number</th>
-                <th className="px-4 py-2">Date of Birth</th>
-                <th className="px-4 py-2">Contact Number</th>
-                <th className="px-4 py-2">Email</th>
-                <th className="px-4 py-2">Address</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Example Data (Replace with dynamic data from your backend) */}
-              <tr>
-                <td className="px-4 py-2">1</td>
-                <td className="px-4 py-2">John</td>
-                <td className="px-4 py-2">Doe</td>
-                <td className="px-4 py-2">1234567890</td>
-                <td className="px-4 py-2">1990-01-01</td>
-                <td className="px-4 py-2">123-456-7890</td>
-                <td className="px-4 py-2">john@example.com</td>
-                <td className="px-4 py-2">123 Main St, City</td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2">2</td>
-                <td className="px-4 py-2">Jane</td>
-                <td className="px-4 py-2">Smith</td>
-                <td className="px-4 py-2">0987654321</td>
-                <td className="px-4 py-2">1988-05-05</td>
-                <td className="px-4 py-2">987-654-3210</td>
-                <td className="px-4 py-2">jane@example.com</td>
-                <td className="px-4 py-2">456 Elm St, Town</td>
-              </tr>
-              {/* End of Example Data */}
-            </tbody>
-          </table>
-        </div>
+        <AccountsTable />
+        <GuarantorsTable />
+        <LoanApplicationsTable />
+        <LoansTable />
+        <LoanTypesTable />
+        <MembersTable />
+        <SavingsPlansTable />
+        <SharesTable />
+        <TransactionsTable />
       </div>
     </div>
   );
 };
 
+const AccountsTable = () => {
+  const accounts = [
+    { account_id: 1, member_id: 1, account_type: "Savings", balance: 5000.0 },
+    { account_id: 2, member_id: 2, account_type: "Loan", balance: 10000.0 },
+    { account_id: 3, member_id: 3, account_type: "Savings", balance: 8000.0 },
+    { account_id: 4, member_id: 4, account_type: "Loan", balance: 5000.0 },
+    { account_id: 5, member_id: 5, account_type: "Savings", balance: 3000.0 },
+    // Add more data as needed
+  ];
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Accounts</h1>
+      <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2">Account ID</th>
+            <th className="px-4 py-2">Member ID</th>
+            <th className="px-4 py-2">Account Type</th>
+            <th className="px-4 py-2">Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through the accounts data and render rows */}
+          {accounts.map((account) => (
+            <tr key={account.account_id}>
+              <td className="px-4 py-2">{account.account_id}</td>
+              <td className="px-4 py-2">{account.member_id}</td>
+              <td className="px-4 py-2">{account.account_type}</td>
+              <td className="px-4 py-2">{account.balance}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
+const GuarantorsTable = () => {
+  const guarantors = [
+    { guarantor_id: 11, member_id: 2, loan_id: 1 },
+    { guarantor_id: 12, member_id: 3, loan_id: 2 },
+    { guarantor_id: 13, member_id: 4, loan_id: 1 },
+    // Add more data as needed
+  ];
 
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Guarantors</h1>
+      <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2">Guarantor ID</th>
+            <th className="px-4 py-2">Member ID</th>
+            <th className="px-4 py-2">Loan ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through the guarantors data and render rows */}
+          {guarantors.map((guarantor) => (
+            <tr key={guarantor.guarantor_id}>
+              <td className="px-4 py-2">{guarantor.guarantor_id}</td>
+              <td className="px-4 py-2">{guarantor.member_id}</td>
+              <td className="px-4 py-2">{guarantor.loan_id}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const LoanApplicationsTable = () => {
+  // Define the loan applications data
+  const loanApplications = [
+    {
+      application_id: 1,
+      member_id: 1,
+      loan_type_id: 1,
+      application_date: "2024-03-10",
+      status: "Pending",
+    },
+    {
+      application_id: 2,
+      member_id: 2,
+      loan_type_id: 2,
+      application_date: "2024-03-11",
+      status: "Approved",
+    },
+    {
+      application_id: 3,
+      member_id: 3,
+      loan_type_id: 3,
+      application_date: "2024-03-12",
+      status: "Pending",
+    },
+    // Add more data as needed
+  ];
+
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Loan Applications</h1>
+      <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2">Application ID</th>
+            <th className="px-4 py-2">Member ID</th>
+            <th className="px-4 py-2">Loan Type ID</th>
+            <th className="px-4 py-2">Application Date</th>
+            <th className="px-4 py-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through the loan applications data and render rows */}
+          {loanApplications.map((application) => (
+            <tr key={application.application_id}>
+              <td className="px-4 py-2">{application.application_id}</td>
+              <td className="px-4 py-2">{application.member_id}</td>
+              <td className="px-4 py-2">{application.loan_type_id}</td>
+              <td className="px-4 py-2">{application.application_date}</td>
+              <td className="px-4 py-2">{application.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const LoansTable = () => {
+  // Define the loans data
+  const loans = [
+    {
+      loan_id: 1,
+      account_id: 2,
+      loan_amount: 10000.0,
+      interest_rate: 5.5,
+      start_date: "2024-03-01",
+      end_date: "2025-03-01",
+      status: "Active",
+    },
+    {
+      loan_id: 2,
+      account_id: 4,
+      loan_amount: 8000.0,
+      interest_rate: 6.0,
+      start_date: "2024-02-15",
+      end_date: "2025-02-15",
+      status: "Completed",
+    },
+    {
+      loan_id: 3,
+      account_id: 2,
+      loan_amount: 10000.0,
+      interest_rate: 5.5,
+      start_date: "2024-03-01",
+      end_date: "2025-03-01",
+      status: "Active",
+    },
+    {
+      loan_id: 4,
+      account_id: 4,
+      loan_amount: 8000.0,
+      interest_rate: 6.0,
+      start_date: "2024-02-15",
+      end_date: "2025-02-15",
+      status: "Completed",
+    },
+    // Add more data as needed
+  ];
+
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Loans</h1>
+      <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2">Loan ID</th>
+            <th className="px-4 py-2">Account ID</th>
+            <th className="px-4 py-2">Loan Amount</th>
+            <th className="px-4 py-2">Interest Rate</th>
+            <th className="px-4 py-2">Start Date</th>
+            <th className="px-4 py-2">End Date</th>
+            <th className="px-4 py-2">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through the loans data and render rows */}
+          {loans.map((loan) => (
+            <tr key={loan.loan_id}>
+              <td className="px-4 py-2">{loan.loan_id}</td>
+              <td className="px-4 py-2">{loan.account_id}</td>
+              <td className="px-4 py-2">{loan.loan_amount}</td>
+              <td className="px-4 py-2">{loan.interest_rate}</td>
+              <td className="px-4 py-2">{loan.start_date}</td>
+              <td className="px-4 py-2">{loan.end_date}</td>
+              <td className="px-4 py-2">{loan.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const LoanTypesTable = () => {
+  // Define the loan types data
+  const loanTypes = [
+    {
+      loan_type_id: 1,
+      loan_type_name: "Personal Loan",
+      max_loan_amount: 5000.0,
+      interest_rate: 8.5,
+    },
+    {
+      loan_type_id: 2,
+      loan_type_name: "Home Loan",
+      max_loan_amount: 200000.0,
+      interest_rate: 6.75,
+    },
+    {
+      loan_type_id: 3,
+      loan_type_name: "Car Loan",
+      max_loan_amount: 30000.0,
+      interest_rate: 7.25,
+    },
+    {
+      loan_type_id: 4,
+      loan_type_name: "Education Loan",
+      max_loan_amount: 40000.0,
+      interest_rate: 5.5,
+    },
+    {
+      loan_type_id: 5,
+      loan_type_name: "Business Loan",
+      max_loan_amount: 100000.0,
+      interest_rate: 9.0,
+    },
+    {
+      loan_type_id: 6,
+      loan_type_name: "Personal Loan",
+      max_loan_amount: 5000.0,
+      interest_rate: 8.5,
+    },
+    {
+      loan_type_id: 7,
+      loan_type_name: "Home Loan",
+      max_loan_amount: 200000.0,
+      interest_rate: 6.75,
+    },
+    {
+      loan_type_id: 8,
+      loan_type_name: "Car Loan",
+      max_loan_amount: 30000.0,
+      interest_rate: 7.25,
+    },
+    // Add more data as needed
+  ];
+
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Loan Types</h1>
+      <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2">Loan Type ID</th>
+            <th className="px-4 py-2">Loan Type Name</th>
+            <th className="px-4 py-2">Max Loan Amount</th>
+            <th className="px-4 py-2">Interest Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through the loan types data and render rows */}
+          {loanTypes.map((loanType) => (
+            <tr key={loanType.loan_type_id}>
+              <td className="px-4 py-2">{loanType.loan_type_id}</td>
+              <td className="px-4 py-2">{loanType.loan_type_name}</td>
+              <td className="px-4 py-2">{loanType.max_loan_amount}</td>
+              <td className="px-4 py-2">{loanType.interest_rate}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const MembersTable = () => {
+  // Define the members data
+  const members = [
+    {
+      member_id: 1,
+      first_name: "John",
+      last_name: "Doe",
+      id_number: "123456789",
+      date_of_birth: "1990-05-15",
+      contact_number: "123-456-7890",
+      email: "john.doe@example.com",
+      address: "123 Main St, City",
+    },
+    {
+      member_id: 2,
+      first_name: "Alice",
+      last_name: "Smith",
+      id_number: "987654321",
+      date_of_birth: "1985-08-21",
+      contact_number: "987-654-3210",
+      email: "alice.smith@example.com",
+      address: "456 Elm St, Town",
+    },
+    {
+      member_id: 3,
+      first_name: "Michael",
+      last_name: "Johnson",
+      id_number: "456123789",
+      date_of_birth: "1978-12-03",
+      contact_number: "456-123-7890",
+      email: "michael.johnson@example.com",
+      address: "789 Oak St, Village",
+    },
+    {
+      member_id: 4,
+      first_name: "Emily",
+      last_name: "Brown",
+      id_number: "789456123",
+      date_of_birth: "1995-03-27",
+      contact_number: "789-456-1230",
+      email: "emily.brown@example.com",
+      address: "321 Pine St, Countryside",
+    },
+    {
+      member_id: 5,
+      first_name: "David",
+      last_name: "Martinez",
+      id_number: "321789654",
+      date_of_birth: "1982-07-11",
+      contact_number: "321-789-6540",
+      email: "david.martinez@example.com",
+      address: "654 Maple St, Suburb",
+    },
+    {
+      member_id: 6,
+      first_name: "John",
+      last_name: "Doe",
+      id_number: "123456789",
+      date_of_birth: "1990-05-15",
+      contact_number: "123-456-7890",
+      email: "john.doe@example.com",
+      address: "123 Main St, City",
+    },
+    {
+      member_id: 7,
+      first_name: "Alice",
+      last_name: "Smith",
+      id_number: "987654321",
+      date_of_birth: "1985-08-21",
+      contact_number: "987-654-3210",
+      email: "alice.smith@example.com",
+      address: "456 Elm St, Town",
+    },
+    {
+      member_id: 8,
+      first_name: "Michael",
+      last_name: "Johnson",
+      id_number: "456123789",
+      date_of_birth: "1978-12-03",
+      contact_number: "456-123-7890",
+      email: "michael.johnson@example.com",
+      address: "789 Oak St, Village",
+    },
+    {
+      member_id: 9,
+      first_name: "Emily",
+      last_name: "Brown",
+      id_number: "789456123",
+      date_of_birth: "1995-03-27",
+      contact_number: "789-456-1230",
+      email: "emily.brown@example.com",
+      address: "321 Pine St, Countryside",
+    },
+    {
+      member_id: 10,
+      first_name: "David",
+      last_name: "Martinez",
+      id_number: "321789654",
+      date_of_birth: "1982-07-11",
+      contact_number: "321-789-6540",
+      email: "david.martinez@example.com",
+      address: "654 Maple St, Suburb",
+    },
+    // Add more data as needed
+  ];
+
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Members</h1>
+      <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2">Member ID</th>
+            <th className="px-4 py-2">First Name</th>
+            <th className="px-4 py-2">Last Name</th>
+            <th className="px-4 py-2">ID Number</th>
+            <th className="px-4 py-2">Date of Birth</th>
+            <th className="px-4 py-2">Contact Number</th>
+            <th className="px-4 py-2">Email</th>
+            <th className="px-4 py-2">Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through the members data and render rows */}
+          {members.map((member) => (
+            <tr key={member.member_id}>
+              <td className="px-4 py-2">{member.member_id}</td>
+              <td className="px-4 py-2">{member.first_name}</td>
+              <td className="px-4 py-2">{member.last_name}</td>
+              <td className="px-4 py-2">{member.id_number}</td>
+              <td className="px-4 py-2">{member.date_of_birth}</td>
+              <td className="px-4 py-2">{member.contact_number}</td>
+              <td className="px-4 py-2">{member.email}</td>
+              <td className="px-4 py-2">{member.address}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const SavingsPlansTable = () => {
+  // Define the savings plans data
+  const savingsPlans = [
+    {
+      plan_id: 1,
+      plan_name: "Basic Savings",
+      minimum_balance: 1000.0,
+      interest_rate: 2.0,
+    },
+    {
+      plan_id: 2,
+      plan_name: "Premium Savings",
+      minimum_balance: 5000.0,
+      interest_rate: 3.5,
+    },
+    {
+      plan_id: 3,
+      plan_name: "Retirement Plan",
+      minimum_balance: 10000.0,
+      interest_rate: 5.0,
+    },
+    {
+      plan_id: 4,
+      plan_name: "Children Savings",
+      minimum_balance: 500.0,
+      interest_rate: 2.25,
+    },
+    {
+      plan_id: 5,
+      plan_name: "High Yield Savings",
+      minimum_balance: 10000.0,
+      interest_rate: 4.5,
+    },
+    {
+      plan_id: 6,
+      plan_name: "Basic Savings",
+      minimum_balance: 1000.0,
+      interest_rate: 2.0,
+    },
+    {
+      plan_id: 7,
+      plan_name: "Premium Savings",
+      minimum_balance: 5000.0,
+      interest_rate: 3.5,
+    },
+    {
+      plan_id: 8,
+      plan_name: "Retirement Plan",
+      minimum_balance: 10000.0,
+      interest_rate: 5.0,
+    },
+    // Add more data as needed
+  ];
+
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Savings Plans</h1>
+      <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2">Plan ID</th>
+            <th className="px-4 py-2">Plan Name</th>
+            <th className="px-4 py-2">Minimum Balance</th>
+            <th className="px-4 py-2">Interest Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through the savings plans data and render rows */}
+          {savingsPlans.map((plan) => (
+            <tr key={plan.plan_id}>
+              <td className="px-4 py-2">{plan.plan_id}</td>
+              <td className="px-4 py-2">{plan.plan_name}</td>
+              <td className="px-4 py-2">{plan.minimum_balance}</td>
+              <td className="px-4 py-2">{plan.interest_rate}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const SharesTable = () => {
+  // Define the shares data
+  const shares = [
+    {
+      share_id: 6,
+      member_id: 1,
+      share_amount: 500.0,
+      purchase_date: "2023-01-15",
+    },
+    {
+      share_id: 7,
+      member_id: 2,
+      share_amount: 1000.0,
+      purchase_date: "2022-11-20",
+    },
+    {
+      share_id: 8,
+      member_id: 3,
+      share_amount: 1500.0,
+      purchase_date: "2023-05-10",
+    },
+    {
+      share_id: 9,
+      member_id: 4,
+      share_amount: 2000.0,
+      purchase_date: "2022-09-05",
+    },
+    {
+      share_id: 10,
+      member_id: 5,
+      share_amount: 2500.0,
+      purchase_date: "2023-03-30",
+    },
+    {
+      share_id: 11,
+      member_id: 1,
+      share_amount: 500.0,
+      purchase_date: "2023-01-15",
+    },
+    {
+      share_id: 12,
+      member_id: 2,
+      share_amount: 1000.0,
+      purchase_date: "2022-11-20",
+    },
+    {
+      share_id: 13,
+      member_id: 3,
+      share_amount: 1500.0,
+      purchase_date: "2023-05-10",
+    },
+    {
+      share_id: 14,
+      member_id: 4,
+      share_amount: 2000.0,
+      purchase_date: "2022-09-05",
+    },
+    {
+      share_id: 15,
+      member_id: 5,
+      share_amount: 2500.0,
+      purchase_date: "2023-03-30",
+    },
+    // Add more data as needed
+  ];
+
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Shares</h1>
+      <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2">Share ID</th>
+            <th className="px-4 py-2">Member ID</th>
+            <th className="px-4 py-2">Share Amount</th>
+            <th className="px-4 py-2">Purchase Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through the shares data and render rows */}
+          {shares.map((share) => (
+            <tr key={share.share_id}>
+              <td className="px-4 py-2">{share.share_id}</td>
+              <td className="px-4 py-2">{share.member_id}</td>
+              <td className="px-4 py-2">{share.share_amount}</td>
+              <td className="px-4 py-2">{share.purchase_date}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const TransactionsTable = () => {
+  // Define the transactions data
+  const transactions = [
+    {
+      transaction_id: 1,
+      account_id: 1,
+      transaction_type: "Deposit",
+      amount: 1000.0,
+      transaction_date: "2024-03-10 09:30:00",
+    },
+    {
+      transaction_id: 2,
+      account_id: 1,
+      transaction_type: "Withdrawal",
+      amount: 500.0,
+      transaction_date: "2024-03-12 14:45:00",
+    },
+    {
+      transaction_id: 3,
+      account_id: 2,
+      transaction_type: "Loan",
+      amount: 5000.0,
+      transaction_date: "2024-03-05 11:00:00",
+    },
+    {
+      transaction_id: 4,
+      account_id: 3,
+      transaction_type: "Deposit",
+      amount: 2000.0,
+      transaction_date: "2024-03-09 10:00:00",
+    },
+    {
+      transaction_id: 5,
+      account_id: 4,
+      transaction_type: "Loan",
+      amount: 3000.0,
+      transaction_date: "2024-03-08 13:30:00",
+    },
+    {
+      transaction_id: 6,
+      account_id: 1,
+      transaction_type: "Deposit",
+      amount: 1000.0,
+      transaction_date: "2024-03-10 09:30:00",
+    },
+    {
+      transaction_id: 7,
+      account_id: 1,
+      transaction_type: "Withdrawal",
+      amount: 500.0,
+      transaction_date: "2024-03-12 14:45:00",
+    },
+    {
+      transaction_id: 8,
+      account_id: 2,
+      transaction_type: "Loan",
+      amount: 5000.0,
+      transaction_date: "2024-03-05 11:00:00",
+    },
+    {
+      transaction_id: 9,
+      account_id: 3,
+      transaction_type: "Deposit",
+      amount: 2000.0,
+      transaction_date: "2024-03-09 10:00:00",
+    },
+    {
+      transaction_id: 10,
+      account_id: 4,
+      transaction_type: "Loan",
+      amount: 3000.0,
+      transaction_date: "2024-03-08 13:30:00",
+    },
+    // Add more data as needed
+  ];
+
+  return (
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Transactions</h1>
+      <table className="table-auto w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead className="bg-gray-200">
+          <tr>
+            <th className="px-4 py-2">Transaction ID</th>
+            <th className="px-4 py-2">Account ID</th>
+            <th className="px-4 py-2">Transaction Type</th>
+            <th className="px-4 py-2">Amount</th>
+            <th className="px-4 py-2">Transaction Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* Map through the transactions data and render rows */}
+          {transactions.map((transaction) => (
+            <tr key={transaction.transaction_id}>
+              <td className="px-4 py-2">{transaction.transaction_id}</td>
+              <td className="px-4 py-2">{transaction.account_id}</td>
+              <td className="px-4 py-2">{transaction.transaction_type}</td>
+              <td className="px-4 py-2">{transaction.amount}</td>
+              <td className="px-4 py-2">{transaction.transaction_date}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 export default App;
