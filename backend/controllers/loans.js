@@ -3,11 +3,12 @@ const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 const loansRoute = express();
 
+require("dotenv").config();
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "jimmy254",
-  database: "light_sacco",
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
 });
 
 connection.connect((err) => {
@@ -20,11 +21,25 @@ connection.connect((err) => {
 
 // CREATE - Add a new loan
 loansRoute.post("/loans", (req, res) => {
-  const { account_id, loan_amount, interest_rate, start_date, end_date, status } = req.body;
+  const {
+    account_id,
+    loan_amount,
+    interest_rate,
+    start_date,
+    end_date,
+    status,
+  } = req.body;
 
   const sql =
     "INSERT INTO Loans (account_id, loan_amount, interest_rate, start_date, end_date, status) VALUES (?, ?, ?, ?, ?, ?)";
-  const values = [account_id, loan_amount, interest_rate, start_date, end_date, status];
+  const values = [
+    account_id,
+    loan_amount,
+    interest_rate,
+    start_date,
+    end_date,
+    status,
+  ];
 
   connection.query(sql, values, (err, result) => {
     if (err) {
@@ -54,10 +69,25 @@ loansRoute.get("/loans", (req, res) => {
 // UPDATE - Update a loan
 loansRoute.put("/loans/:loan_id", (req, res) => {
   const loanId = req.params.loan_id;
-  const { account_id, loan_amount, interest_rate, start_date, end_date, status } = req.body;
+  const {
+    account_id,
+    loan_amount,
+    interest_rate,
+    start_date,
+    end_date,
+    status,
+  } = req.body;
   const sql =
     "UPDATE Loans SET account_id = ?, loan_amount = ?, interest_rate = ?, start_date = ?, end_date = ?, status = ? WHERE loan_id = ?";
-  const values = [account_id, loan_amount, interest_rate, start_date, end_date, status, loanId];
+  const values = [
+    account_id,
+    loan_amount,
+    interest_rate,
+    start_date,
+    end_date,
+    status,
+    loanId,
+  ];
 
   connection.query(sql, values, (err, result) => {
     if (err) {

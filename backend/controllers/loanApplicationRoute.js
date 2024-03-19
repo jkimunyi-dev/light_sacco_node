@@ -3,11 +3,12 @@ const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 const loanApplicationsRoute = express();
 
+require("dotenv").config();
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "jimmy254",
-  database: "light_sacco",
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
 });
 
 connection.connect((err) => {
@@ -57,7 +58,13 @@ loanApplicationsRoute.put("/loan-applications/:application_id", (req, res) => {
   const { member_id, loan_type_id, application_date, status } = req.body;
   const sql =
     "UPDATE LoanApplications SET member_id = ?, loan_type_id = ?, application_date = ?, status = ? WHERE application_id = ?";
-  const values = [member_id, loan_type_id, application_date, status, applicationId];
+  const values = [
+    member_id,
+    loan_type_id,
+    application_date,
+    status,
+    applicationId,
+  ];
 
   connection.query(sql, values, (err, result) => {
     if (err) {
@@ -70,17 +77,20 @@ loanApplicationsRoute.put("/loan-applications/:application_id", (req, res) => {
 });
 
 // DELETE - Delete a loan application
-loanApplicationsRoute.delete("/loan-applications/:application_id", (req, res) => {
-  const applicationId = req.params.application_id;
-  const sql = "DELETE FROM LoanApplications WHERE application_id = ?";
-  connection.query(sql, applicationId, (err, result) => {
-    if (err) {
-      console.error("Error deleting loan application: " + err.stack);
-      return res.status(500).json({ error: "Internal Server Error" });
-    }
-    console.log("Loan application deleted: " + result.affectedRows);
-    res.json({ message: "Loan application deleted successfully" });
-  });
-});
+loanApplicationsRoute.delete(
+  "/loan-applications/:application_id",
+  (req, res) => {
+    const applicationId = req.params.application_id;
+    const sql = "DELETE FROM LoanApplications WHERE application_id = ?";
+    connection.query(sql, applicationId, (err, result) => {
+      if (err) {
+        console.error("Error deleting loan application: " + err.stack);
+        return res.status(500).json({ error: "Internal Server Error" });
+      }
+      console.log("Loan application deleted: " + result.affectedRows);
+      res.json({ message: "Loan application deleted successfully" });
+    });
+  }
+);
 
 module.exports = loanApplicationsRoute;

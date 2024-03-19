@@ -3,11 +3,12 @@ const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 const transactionsRoute = express();
 
+require("dotenv").config();
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "jimmy254",
-  database: "light_sacco",
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
 });
 
 connection.connect((err) => {
@@ -57,7 +58,13 @@ transactionsRoute.put("/transactions/:transaction_id", (req, res) => {
   const { account_id, transaction_type, amount, transaction_date } = req.body;
   const sql =
     "UPDATE Transactions SET account_id = ?, transaction_type = ?, amount = ?, transaction_date = ? WHERE transaction_id = ?";
-  const values = [account_id, transaction_type, amount, transaction_date, transactionId];
+  const values = [
+    account_id,
+    transaction_type,
+    amount,
+    transaction_date,
+    transactionId,
+  ];
 
   connection.query(sql, values, (err, result) => {
     if (err) {
